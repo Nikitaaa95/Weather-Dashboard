@@ -1,0 +1,21 @@
+var searchCityEl = document.getElementById("searchCity");
+var searchTempEl = document.getElementById("searchTemp");
+var searchWindEl = document.getElementById("searchWind");
+var searchHumidityEl = document.getElementById("searchHumidity");
+var cityPlaceholderEl = "New York City";
+var today = dayjs().format("M/D/YY");
+searchCityEl.innerHTML = cityPlaceholderEl + " (" + today + ")";
+searchTempEl.innerHTML = "Temp: ";
+searchWindEl.innerHTML = "Wind: ";
+searchHumidityEl.innerHTML = "Humidity: "
+
+var oneDateEl = document.getElementById("1date");
+var twoDateEl = document.getElementById("2date");
+var threeDateEl = document.getElementById("3date");
+var fourDateEl = document.getElementById("4date");
+var fiveDateEl = document.getElementById("5date");
+oneDateEl.innerHTML = dayjs().add(1, 'day').format("M/D/YY");
+twoDateEl.innerHTML = dayjs().add(2, 'day').format("M/D/YY");
+threeDateEl.innerHTML = dayjs().add(3, 'day').format("M/D/YY");
+fourDateEl.innerHTML = dayjs().add(4, 'day').format("M/D/YY");
+fiveDateEl.innerHTML = dayjs().add(5, 'day').format("M/D/YY");
