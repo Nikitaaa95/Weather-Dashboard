@@ -1,4 +1,5 @@
 var searchCityEl = document.getElementById("searchCity");
+var searchIconEL = document.getElementById("searchIcon");
 var searchTempEl = document.getElementById("searchTemp");
 var searchWindEl = document.getElementById("searchWind");
 var searchHumidityEl = document.getElementById("searchHumidity");
@@ -86,14 +87,17 @@ function getFinalWeather(latitude,longitude) {
         })
         .then(data => {
             console.log(data);
+            var todayIconraw = data.list[0].weather[0].icon;
+            var weatherIconUrl = `http://openweathermap.org/img/w/${todayIconraw}.png`;
             var todayTemp = "Temp: " + data.list[0].main.temp +" °F";
             var todayWind = "Wind: " + data.list[0].wind.speed + " MPH";
-            var todayHumidity = "Humidity: " + data.list[0].main.humidity + " %";
+            var todayHumidity = "Humidity: " + data.list[0].main.humidity + " %"; 
             searchCityEl.innerHTML = currentCity + " (" + today + ")";
+            searchIconEL.setAttribute("src", weatherIconUrl);
             searchTempEl.innerHTML = todayTemp;
             searchWindEl.innerHTML = todayWind;
             searchHumidityEl.innerHTML = todayHumidity
-            console.log(`${todayTemp}, ${todayWind}, ${todayHumidity}`);
+            console.log(`${weatherIconUrl}`);
         })
         .catch(error => {
             console.error('Error:', error);
