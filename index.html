@@ -30,6 +30,16 @@
       font-weight: bold;
       font-size: medium;
     }
+    .searchHistoryBtn {
+      margin-top: 15px; 
+      background-color: var(--darkgreen); 
+      color: var(--bronze);
+      display: block;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+      border-radius: 5px;
+    }
   </style>
 </head>
 
@@ -44,7 +54,7 @@
         <input type="text" class="form-control searchInput" id="cityInput" placeholder="New York City">
         <button id="searchButton" type="button" class="btn" style="margin-top: 15px; background-color: var(--darkbronze); color: var(--lightgreen);">Search</button>
       </div>
-      <div class="searchHistory">
+      <div id="searchHistory">
       </div>
     </div>
       <div class="col-md-9">

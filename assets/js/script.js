@@ -30,15 +30,16 @@ var fiveIconEl = document.getElementById("5icon");
 var fiveTempEl = document.getElementById("5temp");
 var fiveWindEl = document.getElementById("5wind");
 var fiveHumidityEl = document.getElementById("5humidity");
+var inputSearch = document.getElementById("cityInput");
 
 getWeather(currentCity);
 
 
 var searchButtonEl = document.getElementById("searchButton");
 searchButtonEl.addEventListener('click', function (event) {
-    var inputSearch = document.getElementById("cityInput");
     currentCity = inputSearch.value;
     getWeather(currentCity);
+    createButton();
 });
 
 function getWeather(currentCity) {
@@ -136,4 +137,11 @@ function getFinalWeather(latitude,longitude) {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+function createButton() {
+    var savedButton = document.createElement("button");
+    savedButton.textContent = inputSearch.value;
+    savedButton.setAttribute("class", "searchHistoryBtn");
+    var searchHistoryEl = document.getElementById("searchHistory");
+    searchHistoryEl.appendChild(savedButton);
 }
