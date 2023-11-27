@@ -53,6 +53,8 @@ getWeather(currentCity);
 
 var searchButtonEl = document.getElementById("searchButton");
 searchButtonEl.addEventListener('click', function (event) {
+    var inputSearch = document.getElementById("cityInput");
+    currentCity = inputSearch.value;
     getWeather(currentCity);
 });
 
