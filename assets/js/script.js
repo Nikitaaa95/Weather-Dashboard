@@ -4,10 +4,7 @@ var searchWindEl = document.getElementById("searchWind");
 var searchHumidityEl = document.getElementById("searchHumidity");
 var currentCity = "New York City";
 var today = dayjs().format("M/D/YY");
-searchCityEl.innerHTML = currentCity + " (" + today + ")";
-searchTempEl.innerHTML = "Temp: ";
-searchWindEl.innerHTML = "Wind: ";
-searchHumidityEl.innerHTML = "Humidity: "
+
 
 var oneDateEl = document.getElementById("1date");
 var oneTempEl = document.getElementById("1temp");
@@ -50,8 +47,13 @@ fiveTempEl.innerHTML = "Temp: ";
 fiveWindEl.innerHTML = "Wind: ";
 fiveHumidityEl.innerHTML = "Humity: ";
 
+getWeather(currentCity);
 
 
+var searchButtonEl = document.getElementById("searchButton");
+searchButtonEl.addEventListener('click', function (event) {
+    getWeather(currentCity);
+});
 
 function getWeather(currentCity) {
     var weatherAPIUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=bca25d9b32a328dc771abf61e84426ad`;
@@ -64,16 +66,36 @@ function getWeather(currentCity) {
             return response.json();
         })
         .then(data => {
-            var coordinates = data.coord;
-            var latitude = coordinates.lat;
-            var longitude = coordinates.lon;
-
-            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+            var latitude = data.coord.lat;
+            var longitude = data.coord.lon;
+            getFinalWeather(latitude, longitude);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
 
-
-getWeather(currentCity);
+function getFinalWeather(latitude,longitude) {
+    var cityAPIUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=bca25d9b32a328dc771abf61e84426ad&units=imperial`;
+    fetch(cityAPIUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            var todayTemp = "Temp: " + data.list[0].main.temp +" °F";
+            var todayWind = "Wind: " + data.list[0].wind.speed + " MPH";
+            var todayHumidity = "Humidity: " + data.list[0].main.humidity + " %";
+            searchCityEl.innerHTML = currentCity + " (" + today + ")";
+            searchTempEl.innerHTML = todayTemp;
+            searchWindEl.innerHTML = todayWind;
+            searchHumidityEl.innerHTML = todayHumidity
+            console.log(`${todayTemp}, ${todayWind}, ${todayHumidity}`);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
