@@ -2,9 +2,9 @@ var searchCityEl = document.getElementById("searchCity");
 var searchTempEl = document.getElementById("searchTemp");
 var searchWindEl = document.getElementById("searchWind");
 var searchHumidityEl = document.getElementById("searchHumidity");
-var cityPlaceholderEl = "New York City";
+var currentCity = "New York City";
 var today = dayjs().format("M/D/YY");
-searchCityEl.innerHTML = cityPlaceholderEl + " (" + today + ")";
+searchCityEl.innerHTML = currentCity + " (" + today + ")";
 searchTempEl.innerHTML = "Temp: ";
 searchWindEl.innerHTML = "Wind: ";
 searchHumidityEl.innerHTML = "Humidity: "
@@ -49,3 +49,31 @@ fiveDateEl.innerHTML = dayjs().add(5, 'day').format("M/D/YY");
 fiveTempEl.innerHTML = "Temp: ";
 fiveWindEl.innerHTML = "Wind: ";
 fiveHumidityEl.innerHTML = "Humity: ";
+
+
+
+
+function getWeather(currentCity) {
+    var weatherAPIUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=bca25d9b32a328dc771abf61e84426ad`;
+
+    fetch(weatherAPIUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            var coordinates = data.coord;
+            var latitude = coordinates.lat;
+            var longitude = coordinates.lon;
+
+            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
+getWeather(currentCity);
