@@ -31,6 +31,8 @@ var fiveTempEl = document.getElementById("5temp");
 var fiveWindEl = document.getElementById("5wind");
 var fiveHumidityEl = document.getElementById("5humidity");
 var inputSearch = document.getElementById("cityInput");
+var searchHistoryEl = document.getElementById("searchHistory");
+
 
 getWeather(currentCity);
 
@@ -72,7 +74,6 @@ function getFinalWeather(latitude,longitude) {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             var todayIconraw = data.list[0].weather[0].icon;
             var todayIcon = `http://openweathermap.org/img/w/${todayIconraw}.png`;
             var todayTemp = "Temp: " + data.list[0].main.temp +" °F";
@@ -140,8 +141,44 @@ function getFinalWeather(latitude,longitude) {
 }
 function createButton() {
     var savedButton = document.createElement("button");
-    savedButton.textContent = inputSearch.value;
+    var thisSearch = inputSearch.value
+    savedButton.textContent = thisSearch;
     savedButton.setAttribute("class", "searchHistoryBtn");
-    var searchHistoryEl = document.getElementById("searchHistory");
     searchHistoryEl.appendChild(savedButton);
+    //save to local storage
+    localStorage.setItem(thisSearch, thisSearch);
 }
+
+var clearStorageEl = document.getElementById("clearStorage");
+clearStorageEl.addEventListener('click', function () {
+    searchHistoryEl.innerHTML = "";
+    localStorage.clear();
+})
+
+function SearchHistorySt() {
+    var itemsArray = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      var value = localStorage.getItem(key);
+      itemsArray.push({ key: key, value: value });
+    }
+    return itemsArray;
+  }
+  
+  var SearchHistoryFull = SearchHistorySt();
+  createHistoricalButtons(SearchHistoryFull);
+
+  function createHistoricalButtons (SearchHistoryFull) {
+    for (var x = 0; x < SearchHistoryFull.length; x++) {
+        var pastButton = document.createElement("button");
+        pastButton.setAttribute("class", "searchHistoryBtn");
+        var pastCityName = SearchHistoryFull[x].value;
+        pastButton.textContent = pastCityName;
+        searchHistoryEl.appendChild(pastButton);
+        pastButton.addEventListener('click', function() {
+            currentCity = pastCityName;
+            getWeather(currentCity);
+        })
+        }
+    }
+    
