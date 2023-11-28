@@ -50,7 +50,7 @@ function getWeather(currentCity) {
     fetch(weatherAPIUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                alert("This city can not be found. Please try another known city!");
             }
             return response.json();
         })
@@ -134,6 +134,14 @@ function getFinalWeather(latitude,longitude) {
             fiveTempEl.innerHTML = fiveTemp;
             fiveWindEl.innerHTML = fiveWind;
             fiveHumidityEl.innerHTML = fiveHumidity;
+            var buttonClicker = document.querySelectorAll(".searchHistoryBtn");
+            for (let y = 0; y < buttonClicker.length; y++) {
+                buttonClicker[y].addEventListener('click', function () {
+                var searchCode = buttonClicker[y].firstChild.data;
+                console.log(searchCode);
+                currentCity = searchCode;
+                getWeather(currentCity);    })
+}
         })
         .catch(error => {
             console.error('Error:', error);
@@ -175,10 +183,5 @@ function SearchHistorySt() {
         var pastCityName = SearchHistoryFull[x].value;
         pastButton.textContent = pastCityName;
         searchHistoryEl.appendChild(pastButton);
-        pastButton.addEventListener('click', function() {
-            currentCity = pastCityName;
-            getWeather(currentCity);
-        })
         }
     }
-    
