@@ -45,7 +45,7 @@ searchButtonEl.addEventListener('click', function (event) {
 });
 
 function getWeather(currentCity) {
-    var weatherAPIUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=bca25d9b32a328dc771abf61e84426ad`;
+    var weatherAPIUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=bca25d9b32a328dc771abf61e84426ad`;
 
     fetch(weatherAPIUrl)
         .then(response => {
@@ -65,17 +65,17 @@ function getWeather(currentCity) {
 }
 
 function getFinalWeather(latitude,longitude) {
-    var cityAPIUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=bca25d9b32a328dc771abf61e84426ad&units=imperial`;
+    var cityAPIUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=bca25d9b32a328dc771abf61e84426ad&units=imperial`;
     fetch(cityAPIUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`https error! Status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             var todayIconraw = data.list[0].weather[0].icon;
-            var todayIcon = `http://openweathermap.org/img/w/${todayIconraw}.png`;
+            var todayIcon = `https://openweathermap.org/img/w/${todayIconraw}.png`;
             var todayTemp = "Temp: " + data.list[0].main.temp +" °F";
             var todayWind = "Wind: " + data.list[0].wind.speed + " MPH";
             var todayHumidity = "Humidity: " + data.list[0].main.humidity + " %"; 
@@ -85,7 +85,7 @@ function getFinalWeather(latitude,longitude) {
             searchWindEl.innerHTML = todayWind;
             searchHumidityEl.innerHTML = todayHumidity;
             var oneIconraw = data.list[1].weather[0].icon;
-            var oneIcon = `http://openweathermap.org/img/w/${oneIconraw}.png`;
+            var oneIcon = `https://openweathermap.org/img/w/${oneIconraw}.png`;
             var oneTemp = "Temp: " + data.list[1].main.temp +" °F";
             var oneWind = "Wind: " + data.list[1].wind.speed + " MPH";
             var oneHumidity = "Humidity: " + data.list[1].main.humidity + " %";
@@ -95,7 +95,7 @@ function getFinalWeather(latitude,longitude) {
             oneWindEl.innerHTML = oneWind;
             oneHumidityEl.innerHTML = oneHumidity;
             var twoIconraw = data.list[2].weather[0].icon;
-            var twoIcon = `http://openweathermap.org/img/w/${twoIconraw}.png`;
+            var twoIcon = `https://openweathermap.org/img/w/${twoIconraw}.png`;
             var twoTemp = "Temp: " + data.list[2].main.temp +" °F";
             var twoWind = "Wind: " + data.list[2].wind.speed + " MPH";
             var twoHumidity = "Humidity: " + data.list[2].main.humidity + " %";
@@ -105,7 +105,7 @@ function getFinalWeather(latitude,longitude) {
             twoWindEl.innerHTML = twoWind;
             twoHumidityEl.innerHTML = twoHumidity;
             var threeIconraw = data.list[3].weather[0].icon;
-            var threeIcon = `http://openweathermap.org/img/w/${threeIconraw}.png`;
+            var threeIcon = `https://openweathermap.org/img/w/${threeIconraw}.png`;
             var threeTemp = "Temp: " + data.list[3].main.temp +" °F";
             var threeWind = "Wind: " + data.list[3].wind.speed + " MPH";
             var threeHumidity = "Humidity: " + data.list[3].main.humidity + " %";
@@ -115,7 +115,7 @@ function getFinalWeather(latitude,longitude) {
             threeWindEl.innerHTML = threeWind;
             threeHumidityEl.innerHTML = threeHumidity;
             var fourIconraw = data.list[4].weather[0].icon;
-            var fourIcon = `http://openweathermap.org/img/w/${fourIconraw}.png`;
+            var fourIcon = `https://openweathermap.org/img/w/${fourIconraw}.png`;
             var fourTemp = "Temp: " + data.list[4].main.temp +" °F";
             var fourWind = "Wind: " + data.list[4].wind.speed + " MPH";
             var fourHumidity = "Humidity: " + data.list[4].main.humidity + " %";
@@ -125,7 +125,7 @@ function getFinalWeather(latitude,longitude) {
             fourWindEl.innerHTML = fourWind;
             fourHumidityEl.innerHTML = fourHumidity;
             var fiveIconraw = data.list[5].weather[0].icon;
-            var fiveIcon = `http://openweathermap.org/img/w/${fiveIconraw}.png`;
+            var fiveIcon = `https://openweathermap.org/img/w/${fiveIconraw}.png`;
             var fiveTemp = "Temp: " + data.list[5].main.temp +" °F";
             var fiveWind = "Wind: " + data.list[5].wind.speed + " MPH";
             var fiveHumidity = "Humidity: " + data.list[5].main.humidity + " %";
